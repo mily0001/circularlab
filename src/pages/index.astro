@@ -1,11 +1,29 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+//@ts-nocheck
+import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const url = "https://xedxgyfplsvybeqftmdv.supabase.co/rest/v1/events?select=*";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlZHhneWZwbHN2eWJlcWZ0bWR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyNjc3MTUsImV4cCI6MjA1OTg0MzcxNX0.vKsJTQD_cE5yh6D39RHg0Uyus8BypCo1qHz2E3iyOLw";
+
+const options = {
+  headers: {
+    apikey: key,
+  },
+};
+
+const data = await fetch(url, options).then((res) => res.json());
+console.log(data);
 ---
 
 <Layout>
-	<Welcome />
+
+  <h1>MIN SIDE</h1>
+  <article>
+  {data.map((event) => (
+		<h2>{event.event_title}</h2>
+  <p>{event.event_description}}</p>
+</article>
+  ))
+}
 </Layout>
